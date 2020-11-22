@@ -1,0 +1,13 @@
+https://docs.google.com/spreadsheets/d/1DtIsThyGicQEpy1Mp0Kn2VA7xJ_5W0jop6YDQj7GhXk/edit#gid=393215037
+http://dontpad.com/optpyifc
+
+1-veículo
+2-proprietário-cpf/cnpj
+3-motorista
+4-habilitação
+5-Abastecimento
+6-Manutenção/Serviço
+7-Tipo_Serviço
+8-Despesa
+9-Receita
+10-Percurso
