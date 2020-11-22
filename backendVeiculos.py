@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
-
+from veiculo import Veiculo
 import os
 app = Flask(__name__)
 caminho = os.path.dirname(os.path.abspath(__file__))
