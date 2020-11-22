@@ -48,5 +48,3 @@ if __name__ == "__main__":
         print(meusVeiculos)
     for vJson in todosVeiculos:
         print(vJson.json())
-
-
