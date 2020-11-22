@@ -34,12 +34,19 @@ if __name__ == "__main__":
     novo = Veiculo(marca = "vw", nomeDescricao = "golf gti", anoModelo="2015/2016", \
     cor = "cinza", placa = "aaa1111", renavam ="12345678965", categoria = "passeio")
 
+    novo1 = Veiculo(marca = "meredes", nomeDescricao = "bens", anoModelo="2017/2017", \
+    cor = "azul", placa = "abb1441", renavam ="12342356985", categoria = "carga")
+
     novo2 = Veiculo(marca = "hk", nomeDescricao = "Scania", anoModelo="2015/2016", \
     cor = "cinza", placa = "aaa1111", renavam ="12345678965", categoria = "Carga")
 
+    novo3 = Veiculo(marca = "Scania", nomeDescricao = "Scania", anoModelo="2016/2016", \
+    cor = "preto", placa = "aaa1123", renavam ="56892312455", categoria = "Carga")
 
     config.db.session.add(novo)
+    config.db.session.add(novo1)
     config.db.session.add(novo2)
+    config.db.session.add(novo3)
     config.db.session.commit()
     todosVeiculos = config.db.session.query(Veiculo).all()
 

@@ -1,15 +1,66 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='main.js'></script>
-</head>
-<body>
-    
-</body>
-</html>
+<html lang="pt-br">
 
+	<head>
+	    <meta charset='utf-8'>
+	    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+	    <title>Lista de Veículos</title>
+	    <meta name='viewport' content='width=device-width, initial-scale=1'>
+	    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+	    <script src='main.js'></script>
+	</head>
+
+	<body style="background-color: rgb(255,192,203)">
+	     <nav class="navbar navbar-expand-lg navbar-light bg-light" >
+	        
+	        <a class="navbar-brand" href="#"><img src="images/foto_veiculos.jpg" height="100px"></a>
+	        
+	        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	          <span class="navbar-toggler-icon"></span>
+	        </button> 
+	        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	              <span class="navbar-text" style="color:green; font-size: 50px; ">Cadastro de Veículos</span>
+	              <a class="nav-link nav-item" href="#" id="link_apagar_tela" style="color:green; font-size: 30px">Início <span class="sr-only">(current)</span></a>
+	              <a class="nav-link nav-item" href="#" id="link_listar_veiculos" style="color:green; font-size: 30px; font-family: time">Listar</a>
+	              <a class="nav-link nav-item" href="#" style="color:green; font-size: 30px">Novo</a>            
+	        </div>
+	    </nav>
+
+
+	    <div id="corpoDaPagina">
+
+	        <div id="conteudoInicial">
+	            <h2>Bem vindo ao Sistema de Veículos</h2>
+	        </div>
+
+	        <table id="tabelaVeículos" >
+	            <thead>
+	              <tr>
+	                <th scope="col">Marca</th>
+	                <th scope="col">Descrição</th>
+	                <th scope="col">Ano/Modelo</th>
+	                <th scope="col">Cor</th>
+	                <th scope="col">Categoria</th>
+	                <th scope="col">Placa</th>
+	                <th scope="col">Renavam</th>
+	              </tr>
+	            </thead>
+	            <tbody id="corpoTabelaVeiculos">
+	               
+	            </tbody>
+	          </table>
+
+	    </div>
+
+	 	 <!-- Optional JavaScript -->
+	    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+	    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	    <script src="javaScript/script.js"></script>
+	</body>
+
+</html>
