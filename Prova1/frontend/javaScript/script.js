@@ -1,6 +1,6 @@
 $( document ).ready(function() {
     
-    $("#conteudoInicial").removeClass("invisible");
+    $("#conteudoInicial").removeClass("visible");
 
     $("#link_listar_veiculos").click(function(){
         
@@ -8,7 +8,7 @@ $( document ).ready(function() {
             url: 'http://localhost:5000/listar_veiculos',
             method: 'GET',
             dataType: 'json', // os dados são recebidos no formato json
-            success: listar_veiculos, // chama a função listar_plantas para processar o resultado
+            success: listar_veiculos, // chama a função listar_veiculos para processar o resultado
             error: function() {
                 alert("erro ao ler dados, verifique o backend");
             }
@@ -42,61 +42,60 @@ $( document ).ready(function() {
             $("#tabelaVeiculos").addClass("visible");
 
             // exibir a tabela
-           // $("conteudoInicial").removeClass("visible");
-          //  $("#tabelaVeiculos").removeClass("visible");
+           //$("conteudoInicial").removeClass("visible");
+          //$("#tabelaVeiculos").removeClass("visible");
         }
 
     });
 
 
-    $("#link_apagar_tela").click(function(){
-            $("#conteudoInicial").removeClass("true");
-        });
+      
+      $("#bt_novo_veiculo").click(function(){
+          //obter dados da tela
+         marca_veiculo     = $("#marca_veiculo").val();
+         descricao_veiculo = $("#descricao_veiculo").val();
+         anoModelo_veiculo = $("#anoModelo_veiculo").val();
+         cor_veiculo       = $("#cor_veiculo").val();
+         categoria_veiculo = $("#categoria_veiculo").val();
+         placa_vaiculo      = $("#placa_veiculo").val();
+         renavam_veiculo   = $("#renavam_veiculo").val();
 
+          //preparar os dados para envio (json)
+          dados_veiculo = JSON.stringify({marca: marca_veiculo, nomeDescricao: descricao_veiculo, anoModelo: anoModelo_veiculo, cor: cor_veiculo,
+              placa: placa_vaiculo, renavam: renavam_veiculo, categoria: categoria_veiculo});
+          alert(dados_veiculo)
+          /*
+          //mandar para o back-end
+          $.ajax({
+              url : 'http://localhost:5000/novo_veiculo',
+              type : 'POST',
+              ContentType = 'aplication/json', //envio de dados json
+              dataType : 'json',
+              data: dados,
+              success: incluirVeiculo,
+              error: erroIncluirVeiculo
+          });
 
-    $("#btn_novo_veiculo").click(function(){
-        //obter dados da tela
-       marca_veiculo     = $("#marca_veiculo").val();
-       descricao_veiculo = $("#descricao_veiculo").val();
-       anoModelo_veiculo = $("#anoModelo_veiculo").val();
-       cor_veiculo       = $("#cor_veiculo").val();
-       categoria_veiculo = $("#categoria_veiculo").val();
-       placa_vaiculo      = $("#placa_veiculo").val();
-       renavam_veiculo   = $("#renavam_veiculo").val();
+          function incluirVeiculo(resposta) {
+              if (resposta.resultado == "ok"){
+              //exibe mensagem de sucesso
+              alert('Veiculo incluido com sucesso!')
+          
+              //limpa valores do formulario
+               $("#marca_veiculo").val("");
+              $("#descricao_veiculo").val("");
+              $("#anoModelo_veiculo").val("");
+              $("#cor_veiculo").val("");
+              $("#categoria_veiculo").val("");
+              $("#placa_veiculo").val("");
+              $("#renavam_veiculo").val("");
+                }else{
+                alert('Erro ao salvar Veículo!!!')
+                 }
+          }
+        function erroIncluirVeiculo(resposta){
+            alert("Erro ao salvar novo veículo!!!")
 
-        //preparar os dados para envio (json)
-        dados_veiculo = JSON.stringify({marca: marca_veiculo, nomeDescricao: descricao_veiculo, anoModelo: anoModelo_veiculo, cor: cor_veiculo,
-            placa: placa_vaiculo, renavam: renavam_veiculo, categoria: categoria_veiculo});
-        
-        //mandar para o back-end
-        $.ajax({
-            url : 'http://localhost:5000/novo_veiculo',
-            type : 'POST',
-            ContentType = 'aplication/json', //envio de dados json
-            dataType : 'json',
-            data: dados,
-            success: incluirVeiculo,
-            error: erroIncluirVeiculo
-        });
-        function incluirVeiculo(resposta) {
-            if (resposta.resultado == "ok"){
-            //exibe mensagem de sucesso
-            alert('Veiculo incluido com sucesso!')
-        
-            //limpa valores do formulario
-             $("#marca_veiculo").val("");
-            $("#descricao_veiculo").val("");
-            $("#anoModelo_veiculo").val("");
-            $("#cor_veiculo").val("");
-            $("#categoria_veiculo").val("");
-            $("#placa_veiculo").val("");
-            $("#renavam_veiculo").val("");
-        }else{
-            alert('Erro ao salvar Veículo!!!')
-        }
-    }
-    function erroIncluirVeiculo(resposta){
-        alert("Erro ao salvar novo veículo!!!")
-    };
-    });
+        }*/
+      });
 });
