@@ -63,7 +63,7 @@ $( document ).ready(function() {
           //preparar os dados para envio (json)
           dados_veiculo = JSON.stringify({marca: marca_veiculo, nomeDescricao: descricao_veiculo, anoModelo: anoModelo_veiculo, cor: cor_veiculo,
               placa: placa_vaiculo, renavam: renavam_veiculo, categoria: categoria_veiculo});
-          alert(dados_veiculo)
+          //alert(dados_veiculo)
           /*
           //mandar para o back-end
           $.ajax({
