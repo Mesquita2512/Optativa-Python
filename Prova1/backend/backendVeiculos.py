@@ -1,6 +1,6 @@
+from logging import exception
 import config
 import modelo
-
 
 @config.app.route("/")
 def padrao():
@@ -16,12 +16,19 @@ def listar_veiculos():
     resposta.headers.add("Access-Control-Allow-Origin", "*")
     return resposta 
 
-@config.app.route("/incluir_planta", methods=['post'])
+@config.app.route("/incluir_veiculo", methods=['post'])
 def incluir_veiculo():
+    
     dados = config.request.get_json()
-    novoVeiculo = modelo.Veiculo(**dados)
-    config.db.session.add(novoVeiculo)
-    config.db.session.commit()
-    return {"resultado":'ok'}
+    print(dados)
+    try: # tentar execultar a inserção
+        novoVeiculo = modelo.Veiculo(dados) # criar um veiculo com o construtor
+        config.db.session.add(novoVeiculo) # adiciona o veiculo no banco de dados
+        config.db.session.commit() # efetiva a operação realizada
+        resposta = config.jsonify({"resultado": "ok", "detalhes": "ok"})
+    except exception as e: # se houver erro este código é execultado
+        resposta = config.jsonify({"resultado": "erro", "detalhes": str(e)})
+    resposta.headers.add("Access-Control-Allow-Origin", "*")
+    return {"resultado":'ok'} # responder!
 
 config.app.run(debug=True)
