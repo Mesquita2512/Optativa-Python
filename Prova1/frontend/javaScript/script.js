@@ -68,11 +68,11 @@ $( document ).ready(function() {
           $.ajax({
               url : 'http://localhost:5000/incluir_veiculo',
               type : 'POST',
-              ContentType : 'application/json', //envio de dados json
+              contentType : 'application/json', //envio de dados json
               dataType : 'json',
               data: dados,
               success: incluirVeiculo,
-              error: erroIncluirVeiculo
+              error: erroIncluirVeiculo,
           });
 
           function incluirVeiculo(resposta) {
@@ -93,7 +93,10 @@ $( document ).ready(function() {
                  }
           }
         function erroIncluirVeiculo(resposta){
-            alert("Problema com o back-end")
+            if(resposta.resultado == "erro"){
+                alert("Problema com o back-end")
+            }
+            
 
         }
     });

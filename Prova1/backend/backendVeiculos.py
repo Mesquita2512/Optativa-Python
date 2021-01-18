@@ -18,17 +18,15 @@ def listar_veiculos():
 
 @config.app.route("/incluir_veiculo", methods=['post'])
 def incluir_veiculo():
-    
+    resposta = config.jsonify({"resultado": "ok", "detalhes": "ok"})
     dados = config.request.get_json()
-    print(dados)
     try: # tentar execultar a inserção
-        novoVeiculo = modelo.Veiculo(dados) # criar um veiculo com o construtor
+        novoVeiculo = modelo.Veiculo(**dados) # criar um veiculo com o construtor
         config.db.session.add(novoVeiculo) # adiciona o veiculo no banco de dados
         config.db.session.commit() # efetiva a operação realizada
-        resposta = config.jsonify({"resultado": "ok", "detalhes": "ok"})
-    except exception as e: # se houver erro este código é execultado
-        resposta = config.jsonify({"resultado": "erro", "detalhes": str(e)})
+    except exception as E: # se houver erro este código é execultado
+        resposta = config.jsonify({"resultado": "erro", "detalhes": str(E)})
     resposta.headers.add("Access-Control-Allow-Origin", "*")
-    return {"resultado":'ok'} # responder!
+    return {resposta} # responder!
 
 config.app.run(debug=True)
