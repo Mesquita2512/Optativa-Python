@@ -2,6 +2,8 @@ $( document ).ready(function() {
     
     $("#conteudoInicial").removeClass("visible");
 
+
+    //listando os veiculos
     $("#link_listar_veiculos").click(function(){
         
         $.ajax({
@@ -21,15 +23,19 @@ $( document ).ready(function() {
             for (var i in veiculos) {
 
               // montar uma linha da tabela de plantas
-              lin = "<tr>" + 
-              "<td>" + veiculos[i].marca + "</th>" + 
-              "<td>" + veiculos[i].nomeDescricao + "</td>" + 
-              "<td>" + veiculos[i].anoModelo + "</td>" + 
-              "<td>" + veiculos[i].cor + "</td>" +
-              "<td>" + veiculos[i].categoria + "</td>" +
-              "<td>" + veiculos[i].placa + "</td>" +
-              "<td>" + veiculos[i].renavam + "</td>" +
-              "</tr>";
+                lin = '<tr id="linha_'+veiculos[i].id+'">' + //(linha que estva no codigo do professor que difere do meu anterior)
+                        '<td>' + veiculos[i].marca + '</th>' + 
+                        '<td>' + veiculos[i].nomeDescricao + '</td>' + 
+                        '<td>' + veiculos[i].anoModelo + '</td>' + 
+                        '<td>' + veiculos[i].cor + '</td>' +
+                        '<td>' + veiculos[i].categoria + '</td>' +
+                        '<td>' + veiculos[i].placa + '</td>' +
+                        '<td>' + veiculos[i].renavam + '</td>' +
+                        '<td><a href=# id="excluir_' + veiculos[i].id +
+                        'class="excluir_veiculo"><img src="images/excluir.png" ' +
+                        'alt="Excluir Veiculo" title="Excluir Veiculo"></a>' +
+                        '</td>' +
+                        '</tr>';
 
               // adicionar a linha da tabela em um acumulador
               linhas = linhas + lin;
@@ -49,7 +55,7 @@ $( document ).ready(function() {
     });
 
 
-      
+    //adicionando um veiculo
     $("#bt_novo_veiculo").click(function(){
           //obter dados da tela
          marca_veiculo     = $("#marca_veiculo").val();
@@ -99,5 +105,38 @@ $( document ).ready(function() {
             
 
         }
+    });
+
+    //Excluindo um Veiculo pelo identificador
+    //codigo para o icone de excluir Veiculo (classe css)
+    $(Document).on("click", ".excluir_veiculo", function() {
+        //obter o id do veiculo clicado
+        var componente_clicado = $(this).attr('id'); //exemplo: excluir_15
+        //obter o id do veiculo no id do componente clicado
+        var nome_icone = "excluir_";
+        var id_veiculo = componente_clicado.substring(nome_icone.length); //ex:15
+        //solicitar a exclusao do Veiculo para o back end
+        $.ajax({
+            url: 'http://localhost:5000/excluir_veiculo/'+id_veiculo,
+            type: 'DELETE', // metodo de requisição
+            dataType: 'json', //tipo de dado
+            sucess: veiculoExcluido,
+            error: erroExcluir
+        });
+    function veiculoExcluido(retorno){
+        if(retorno.resultado == "ok"){//a operação deu certo
+            //remove da tela a linha cujo veiculo foi excluido
+            $("#linha_" + id_veiculo).fadeOut(1000, function(){
+                alert('Veiculo Excluído com sucesso!!!!');
+            });
+        } else{
+            //informa mensagem de erro
+            alert(retorno.resultado + ":" + retorno.detalhes);
+              }
+        
+    }
+    function erroExcluir(respota){
+        alert('Erro ao excluir Veiculo, verifique o back end!!!')
+    }
     });
 });
