@@ -23,7 +23,7 @@ $( document ).ready(function() {
             for (var i in veiculos) {
 
               // montar uma linha da tabela de plantas
-                lin = '<tr id="linha_'+veiculos[i].id+'">' + //(linha que estva no codigo do professor que difere do meu anterior)
+                lin = '<tr id="linha_'+veiculos[i].id + '">' + 
                         '<td>' + veiculos[i].marca + '</th>' + 
                         '<td>' + veiculos[i].nomeDescricao + '</td>' + 
                         '<td>' + veiculos[i].anoModelo + '</td>' + 
@@ -31,7 +31,7 @@ $( document ).ready(function() {
                         '<td>' + veiculos[i].categoria + '</td>' +
                         '<td>' + veiculos[i].placa + '</td>' +
                         '<td>' + veiculos[i].renavam + '</td>' +
-                        '<td><a href=# id="excluir_' + veiculos[i].id +
+                        '<td><a href=# id="excluir_' + veiculos[i].id + '" '+
                         'class="excluir_veiculo"><img src="images/excluir.png" ' +
                         'alt="Excluir Veiculo" title="Excluir Veiculo"></a>' +
                         '</td>' +
@@ -120,7 +120,7 @@ $( document ).ready(function() {
             url: 'http://localhost:5000/excluir_veiculo/'+id_veiculo,
             type: 'DELETE', // metodo de requisição
             dataType: 'json', //tipo de dado
-            sucess: veiculoExcluido,
+            success: veiculoExcluido,
             error: erroExcluir
         });
     function veiculoExcluido(retorno){
@@ -135,7 +135,7 @@ $( document ).ready(function() {
               }
         
     }
-    function erroExcluir(respota){
+    function erroExcluir(retorno){
         alert('Erro ao excluir Veiculo, verifique o back end!!!')
     }
     });

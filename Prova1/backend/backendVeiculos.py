@@ -32,7 +32,7 @@ def incluir_veiculo():
     return resposta # responder!
 
 #DELETANDO UM ITEM
-@config.app.route("/excluir_veiculo/<int:veiculo_id>", methods={'DELETE'})
+@config.app.route("/excluir_veiculo/<int:veiculo_id>", methods=['DELETE'])
 def excluir_veiculo(veiculo_id):
     resposta = config.jsonify({"resultado": "ok", "detalhes": "ok"})
     try:
