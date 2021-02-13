@@ -6,7 +6,7 @@ import modelo
 def padrao():
     return "bem vindo ao backend"
 
-#LISTANDO OS ITENS
+#LISTANDO OS Veiculos
 @config.app.route("/listar_veiculos")
 def listar_veiculos():
     veiculos = config.db.session.query(modelo.Veiculo).all()
