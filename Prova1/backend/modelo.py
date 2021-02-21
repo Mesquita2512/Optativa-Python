@@ -133,17 +133,16 @@ class Abastecimento(config.db.Model):
     valorTotal = config.db.Column(config.db.Integer)
     #chave estrangeira
     idMotorista = config.db.Column(config.db.Integer, config.db.ForeignKey(Motorista.id), nullable=False)
-    idVeiculo = config.db.Column(config.db.Integer, config.db.ForeignKey(Veiculo.id), nullable=False)
-    idTipoCobustivel = config.db.Column(config.db.Integer, config.db.ForeignKey(TipoCombustivel.id), nullable=False)    
-    # atributo de relacionamento, para acesso aos dados via objeto
     motorista = config.db.relationship("Motorista")
+    idVeiculo = config.db.Column(config.db.Integer, config.db.ForeignKey(Veiculo.id), nullable=False)
     veiculo = config.db.relationship("Veiculo")
-    tipoCombustive = config.db.relationship("TipoCombustivel")
+    idTipoCobustivel = config.db.Column(config.db.Integer, config.db.ForeignKey(TipoCombustivel.id), nullable=False)    
+    tipoCombustivel = config.db.relationship("TipoCombustivel")
 
     def __str__(self) -> str:
         return str(self.id) + ", " + self.posto + ", " + str(self.quantidade) + ", " + str(self.quilometragem) + ", " +\
-               self.data + ", " + str(self.valorTotal) + ", " + str(self.motorista + ", " + str(self.veiculo) + ", " +\
-                str(self.tipoCombustive))
+               self.data + ", " + str(self.valorTotal) + ", " + str(self.motorista) + ", " + str(self.veiculo) + ", " +\
+                str(self.tipoCombustivel)
                # o str aciona o __str__ da Habilitação
 
     def json(self):
@@ -159,9 +158,9 @@ class Abastecimento(config.db.Model):
             "idVeiculo":self.idVeiculo,
             "veiculo":self.veiculo.json(),
             "idTipoCombustivel":self.idTipoCobustivel,
-            "tipoCombustivel":self.tipoCombustive.json()  
+            "tipoCombustivel":self.tipoCombustivel.json()  
         }
-
+    
     def calcularValorTotal():
         valorTotal = 0
         if TipoCombustivel.tipo == "gasolina":
@@ -169,8 +168,111 @@ class Abastecimento(config.db.Model):
         elif TipoCombustivel == "diesel":
             valorTotal = TipoCombustivel.valor * Abastecimento.quantidade
         return valorTotal
+    
+#TipoServiço
+class TipoServico(config.db.Model):
+    id = config.db.Column(config.db.Integer, primary_key=True)
+    tipo = config.db.Column(config.db.String(254))
+    valor = config.db.Column(config.db.Integer)
 
+    def __str__(self) -> str:
+        return str(self.id) + ", " + self.tipo + ", " + str(self.valor)
 
+    def json(self):
+        return{
+            "id" : self.id,
+            "tipo" : self.tipo,
+            "valor" : self.valor
+        }
+
+#ManutençãoServiço
+class ManutencaoServico(config.db.Model):
+    id = config.db.Column(config.db.Integer, primary_key=True)
+    oficina = config.db.Column(config.db.String(254))
+    data = config.db.Column(config.db.String(254))
+    quilometragem = config.db.Column(config.db.Integer)
+    valorTotal = config.db.Column(config.db.Integer)
+    #chave estrangeira
+    idVeiculo = config.db.Column(config.db.Integer, config.db.ForeignKey(Veiculo.id), nullable=False)
+    veiculo = config.db.relationship("Veiculo")
+    idTipoServico = config.db.Column(config.db.Integer, config.db.ForeignKey(TipoServico.id), nullable=False)    
+    tipoServico = config.db.relationship("TipoServico")
+
+    def __str__(self):
+        return f"{self.id}, {self.oficina}, {self.data}, {self.quilometragem}, {self.valorTotal}, {self.veiculo}, {self.tipoServico}"
+               # o str aciona o __str__ da Habilitação
+
+    def json(self):
+        return{
+            "id" : self.id,
+            "oficina" : self.oficina,
+            "data" : self.data,
+            "quilometragem" : self.quilometragem,
+            "valorTotal" : self.valorTotal,
+            "idVeiculo":self.idVeiculo,
+            "veiculo":self.veiculo.json(),
+            "idTipoServico":self.idTipoServico,
+            "tipoServico":self.tipoServico.json()  
+        }
+
+#Percurso
+class Percurso(config.db.Model):
+    id = config.db.Column(config.db.Integer, primary_key=True)
+    data = config.db.Column(config.db.String(254))
+    origem = config.db.Column(config.db.String(254))
+    destino = config.db.Column(config.db.String())
+    kmInicial = config.db.Column(config.db.Integer)
+    kmFinal = config.db.Column(config.db.Integer)
+    #chave estrangeira
+    idMotorista = config.db.Column(config.db.Integer, config.db.ForeignKey(Motorista.id), nullable=False)
+    motorista = config.db.relationship("Motorista")
+    idVeiculo = config.db.Column(config.db.Integer, config.db.ForeignKey(Veiculo.id), nullable=False)
+    veiculo = config.db.relationship("Veiculo")
+
+    def __str__(self):
+        return f"{self.data}, {self.origem}, {self.destino}, {self.kmInicial}, {self.kmFinal}, {self.motorista}, {self.veiculo}"
+
+    def json(self):
+        return{
+            "id" : self.id,
+            "data" : self.data,
+            "origem" : self.origem,
+            "destino" : self.destino,
+            "kmInicial" : self.kmInicial,
+            "kmFinal" : self.kmFinal,
+            "idMotorista":self.idMotorista,
+            "motorista":self.motorista.json(),
+            "idVeiculo":self.idVeiculo,
+            "veiculo":self.veiculo.json()
+        }
+        
+#DespesaReceita
+class DespesaReceita(config.db.Model):
+    id = config.db.Column(config.db.Integer, primary_key=True)
+    data = config.db.Column(config.db.String(254))
+    motivo = config.db.Column(config.db.String(254))
+    valor = config.db.Column(config.db.Integer)
+    local = config.db.Column(config.db.String(254))
+    tipo = config.db.Column(config.db.String(254)) # Despesa ou Receita
+    idPercurso = config.db.Column(config.db.Integer, config.db.ForeignKey(Percurso.id), nullable=False)
+    percurso = config.db.relationship("Percurso")
+
+    def __str__(self) :
+        return f"{self.data}, {self.motivo}, {self.valor}, {self.local}, {self.tipo}, {self.percurso}"
+
+    def json(self):
+        return{
+            "id" : self.id,
+            "data" : self.data,
+            "motivo" : self.motivo,
+            "valor" : self.valor,
+            "local" : self.local,
+            "tipo" : self.tipo,
+            "idPercurso":self.idPercurso,
+            "percurso":self.percurso.json()
+        }
+
+#Teste das classes
 if __name__ == "__main__":
 
     if config.os.path.exists(config.arquivobd):
@@ -244,16 +346,60 @@ if __name__ == "__main__":
     print(novoTc1)
     print(novoTc2.json())
     print("--------------------------------------------------------------------------")
-
+    
     #Teste Abastecimento
-    valorAbastecimento = Abastecimento.calcularValorTotal
-    novoAb1 = Abastecimento(posto = "Gasosa Barata", tipoCombustivel = novoTc1, quantidade = "50", valortotal = "300", quilometragem = "65023", data = "25/08/2020", veiculo = novoV1, motorista = novoM1)
+    novoAb1 = Abastecimento(posto = "Gasosa Barata", quantidade = "50", quilometragem = "65023", data = "25/08/2020", valorTotal = "300",motorista = novoM1, veiculo = novoV1,  tipoCombustivel = novoTc1)
+    novoAb2 = Abastecimento(posto = "Gasosa Barata", quantidade = "150", quilometragem = "30230", data = "15/07/2020", valorTotal = "650",motorista = novoM2, veiculo = novoV2,  tipoCombustivel = novoTc2)
     config.db.session.add(novoAb1)
+    config.db.session.add(novoAb2)
     config.db.session.commit()
     print("Teste Abastecimento")
     print(novoAb1)
     print(novoAb1.json())
     print("--------------------------------------------------------------------------")
+     
+    #Teste TipoServiço
+    novoTs1 = TipoServico(tipo = "Troca de Óleo", valor = "220")
+    novoTs2 = TipoServico(tipo = "Troca de Filtros", valor = "150")
+    config.db.session.add(novoTs1)
+    config.db.session.add(novoTs2)
+    config.db.session.commit()
+    print("Teste TipoCombustível")
+    print(novoTs1)
+    print(novoTs2.json())
+    print("--------------------------------------------------------------------------")
 
+    #Teste ManutençãoServiço
+    novaMs1 = ManutencaoServico(oficina = "Oficina Matheus", data = "02/10/2020", quilometragem = "320120", valorTotal = "500", veiculo = novoV1, tipoServico = novoTs1)
+    novaMs2 = ManutencaoServico(oficina = "Oficina do Marcos", data = "18/01/2020", quilometragem = "50120", valorTotal = "820", veiculo = novoV2, tipoServico = novoTs2)
+    config.db.session.add(novaMs1)
+    config.db.session.add(novaMs2)
+    config.db.session.commit()
+    print("Teste ManutençãoServiço")
+    print(novaMs1)
+    print(novaMs2.json())
+    print("--------------------------------------------------------------------------")
 
+    #Teste Percurso
+    print("Teste Percurso")
+    novoP1 = Percurso(data = "26/02/2020", origem = "Blumenau-Sc", destino = "Santa Maria-Rs", kmInicial ="65005", kmFinal = "65980", motorista = novoM1, veiculo = novoV1) 
+    novoP2 = Percurso(data = "208/04/2020", origem = "Santa Maria-Rs", destino = "Blumenau-Sc", kmInicial ="320650", kmFinal = "330025", motorista = novoM2, veiculo = novoV2) 
+    config.db.session.add(novoP1)
+    config.db.session.add(novoP2)
+    config.db.session.commit()
+    print(novoP1)
+    print(novoP2.json())
+    print("--------------------------------------------------------------------------")
+
+    #Teste DespesaReceita
+    novaDr1 = DespesaReceita(data = "30/05/2020", motivo = "Roda Quebrada", valor = "350", local = "Oficina dos covados, santa Maria-Rs", tipo = "Despesa", percurso = novoP1)
+    novaDr2 = DespesaReceita(data = "30/05/2020", motivo = "Venda de roda Quebrada", valor = "100", local = "Oficina dos covados, Santa Maria-Rs", tipo = "Receita", percurso = novoP2)
+    config.db.session.add(novaDr1)
+    config.db.session.add(novaDr2)
+    config.db.session.commit()
+    print("Teste DespesaReceita")
+    print(novaDr1)
+    print(novaDr2.json())
+    print("--------------------------------------------------------------------------")
+    
 
