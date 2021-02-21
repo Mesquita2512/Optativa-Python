@@ -31,6 +31,7 @@ $( document ).ready(function() {
                         '<td>' + veiculos[i].categoria + '</td>' +
                         '<td>' + veiculos[i].placa + '</td>' +
                         '<td>' + veiculos[i].renavam + '</td>' +
+                        '<td>' + veiculos[i].empresa.nome + '</td>' +
                         '<td><a href=# id="excluir_' + veiculos[i].id + '" '+
                         'class="excluir_veiculo"><img src="images/excluir.png" ' +
                         'alt="Excluir Veiculo" title="Excluir Veiculo"></a>' +
@@ -65,9 +66,10 @@ $( document ).ready(function() {
          categoria_veiculo = $("#categoria_veiculo").val();
          placa_veiculo     = $("#placa_veiculo").val();
          renavam_veiculo   = $("#renavam_veiculo").val();
+         id_empresa        = $("#id_empresa").val();
         
           //preparar os dados para envio (json)
-          dados = JSON.stringify({marca: marca_veiculo, nomeDescricao: descricao_veiculo, anoModelo: anoModelo_veiculo, cor: cor_veiculo, placa: placa_veiculo, renavam: renavam_veiculo, categoria: categoria_veiculo});
+          dados = JSON.stringify({marca: marca_veiculo, nomeDescricao: descricao_veiculo, anoModelo: anoModelo_veiculo, cor: cor_veiculo, placa: placa_veiculo, renavam: renavam_veiculo, categoria: categoria_veiculo, idEmpresa: id_empresa});
           
           //mandar para o back-end
           
