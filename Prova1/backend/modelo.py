@@ -161,12 +161,12 @@ class Abastecimento(config.db.Model):
             "tipoCombustivel":self.tipoCombustivel.json()  
         }
     
-    def calcularValorTotal():
+    def calcularValorTotal(self):
         valorTotal = 0
-        if TipoCombustivel.tipo == "gasolina":
-            valorTotal = TipoCombustivel.valor * Abastecimento.quantidade
-        elif TipoCombustivel == "diesel":
-            valorTotal = TipoCombustivel.valor * Abastecimento.quantidade
+        if self.TipoCombustivel.tipo == "gasolina":
+            valorTotal = self.TipoCombustivel.valor * self.Abastecimento.quantidade
+        elif self.TipoCombustivel == "diesel":
+            valorTotal = self.TipoCombustivel.valor * self.Abastecimento.quantidade
         return valorTotal
     
 #TipoServiço
@@ -348,7 +348,7 @@ if __name__ == "__main__":
     print("--------------------------------------------------------------------------")
     
     #Teste Abastecimento
-    novoAb1 = Abastecimento(posto = "Gasosa Barata", quantidade = "50", quilometragem = "65023", data = "25/08/2020", valorTotal = "300",motorista = novoM1, veiculo = novoV1,  tipoCombustivel = novoTc1)
+    novoAb1 = Abastecimento(posto = "Gasosa Barata", quantidade = "50", quilometragem = "65023", data = "25/08/2020", valorTotal = "300", motorista = novoM1, veiculo = novoV1,  tipoCombustivel = novoTc1)
     novoAb2 = Abastecimento(posto = "Gasosa Barata", quantidade = "150", quilometragem = "30230", data = "15/07/2020", valorTotal = "650",motorista = novoM2, veiculo = novoV2,  tipoCombustivel = novoTc2)
     config.db.session.add(novoAb1)
     config.db.session.add(novoAb2)
