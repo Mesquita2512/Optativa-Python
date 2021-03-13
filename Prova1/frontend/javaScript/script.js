@@ -47,9 +47,9 @@ $( document ).ready(function() {
             $("#conteudoInicial").addClass("visible");
             $("#tabelaVeiculos").addClass("visible");
 
-            // exibir a tabela
-           //$("conteudoInicial").removeClass("visible");
-          //$("#tabelaVeiculos").removeClass("visible");
+           // exibir a tabela
+           //$("#conteudoInicial").removeClass("visible");
+           //$("#tabelaVeiculos").removeClass("visible");
         }
     });
 
