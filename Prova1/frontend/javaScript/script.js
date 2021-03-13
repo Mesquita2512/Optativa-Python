@@ -2,7 +2,6 @@ $( document ).ready(function() {
     
     $("#conteudoInicial").removeClass("visible");
 
-
     //listando os veiculos
     $("#link_listar_veiculos").click(function(){
         
@@ -31,7 +30,7 @@ $( document ).ready(function() {
                         '<td>' + veiculos[i].categoria + '</td>' +
                         '<td>' + veiculos[i].placa + '</td>' +
                         '<td>' + veiculos[i].renavam + '</td>' +
-                        '<td>' + veiculos[i].empresa.nome + '</td>' +
+                        '<td><a href=# id="exibir_'+ veiculos[i].id +'" class="exibir_empresa" data-toggle="modal" data-target="#exampleModal2">' + veiculos[i].empresa.nome + '</a></td>' +
                         '<td><a href=# id="excluir_' + veiculos[i].id + '" '+
                         'class="excluir_veiculo"><img src="images/excluir.png" ' +
                         'alt="Excluir Veiculo" title="Excluir Veiculo"></a>' +
@@ -52,18 +51,16 @@ $( document ).ready(function() {
            //$("conteudoInicial").removeClass("visible");
           //$("#tabelaVeiculos").removeClass("visible");
         }
-
     });
 
-
       //listando os empresas
-      $("#link_listar_empresas").click(function(){
+    $("#link_listar_empresas").click(function(){
         
         $.ajax({
             url: 'http://localhost:5000/listar_empresas',
             method: 'GET',
             dataType: 'json', // os dados são recebidos no formato json
-            success: listar_empresas, // chama a função listar_veiculos para processar o resultado
+            success: listar_empresas, // chama a função listar_empresas para processar o resultado
             error: function() {
                 alert("erro ao ler dados, verifique o backend");
             }
@@ -71,21 +68,44 @@ $( document ).ready(function() {
 
         function listar_empresas(empresas) {
            
-            // percorrer as plantas retornadas em json
             for (var i in empresas) {
              linha = empresas[i].id;
+             nome = empresas[i].nome
               $('select').append($('<option>', {
                 value: linha,
-                text: linha
+                text: "("+linha+") - " + nome
             }));
             }
-            // colocar as linhas na tabela
-            
-
         }
-
     });
 
+    //listar_empresas
+    $(Document).on("click", ".exibir_empresa", function() {
+        var componente_clicado = $(this).attr('id');
+        var nome_icone = "exibir_";
+        var id_veiculo = componente_clicado.substring(nome_icone.length); 
+        $.ajax({
+            url: 'http://localhost:5000/listar_veiculos',
+            method: 'GET',
+            dataType: 'json', // os dados são recebidos no formato json
+            success: listar_empresa, // chama a função listar_veiculos para processar o resultado
+            error: function() {
+                alert("erro ao ler dados, verifique o backend");
+            }
+        });
+        function listar_empresa(veiculos){
+            for (var i in veiculos) {
+                if(veiculos[i].id == id_veiculo){
+                   $("#idEmp").val(veiculos[i].empresa.id)
+                   $("#nomeEmp").val(veiculos[i].empresa.nome)
+                   $("#cnpjEmp").val(veiculos[i].empresa.cnpj)
+                   $("#enderecoEmp").val(veiculos[i].empresa.endereco)
+                   $("#telEmp").val(veiculos[i].empresa.telefone)
+                }
+                
+            }  
+        }
+    });
 
     //adicionando um veiculo
     $("#bt_novo_veiculo").click(function(){
@@ -97,7 +117,7 @@ $( document ).ready(function() {
          categoria_veiculo = $("#categoria_veiculo").val();
          placa_veiculo     = $("#placa_veiculo").val();
          renavam_veiculo   = $("#renavam_veiculo").val();
-         id_empresa        = $("#sel1").val();
+         id_empresa        = $("#sel1").val();           
          
           //preparar os dados para envio (json)
           dados = JSON.stringify({marca: marca_veiculo, nomeDescricao: descricao_veiculo, anoModelo: anoModelo_veiculo, cor: cor_veiculo, placa: placa_veiculo, renavam: renavam_veiculo, categoria: categoria_veiculo, idEmpresa: id_empresa});
@@ -105,7 +125,7 @@ $( document ).ready(function() {
           //mandar para o back-end
           
           $.ajax({
-              url : 'http://localhost:5000/inluir_veiculo',
+              url : 'http://localhost:5000/incluir_veiculo',
               type : 'POST',
               contentType : 'application/json', //envio de dados json
               dataType : 'json',
@@ -118,7 +138,6 @@ $( document ).ready(function() {
               if (resposta.resultado == "ok"){
               //exibe mensagem de sucesso
               alert('Veiculo incluido com sucesso!')
-             
               //limpa valores do formulario
               $("#marca_veiculo").val("");
               $("#descricao_veiculo").val("");
@@ -135,8 +154,6 @@ $( document ).ready(function() {
             if(resposta.resultado == "erro"){
                 alert("Problema com o back-end")
             }
-            
-
         }
     });
 
@@ -166,7 +183,6 @@ $( document ).ready(function() {
             //informa mensagem de erro
             alert(retorno.resultado + ":" + retorno.detalhes);
               }
-        
     }
     function erroExcluir(retorno){
         alert('Erro ao excluir Veiculo, verifique o back end!!!')

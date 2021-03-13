@@ -25,7 +25,7 @@
 	              <span class="navbar-text" style="color:green; font-size: 50px; ">Cadastro de Veículos</span>
 	              <a class="nav-link nav-item" href="#" id="link_apagar_tela" style="color:green; font-size: 30px">Início <span class="sr-only">(current)</span></a>
 	              <a class="nav-link nav-item" href="#" id="link_listar_veiculos" style="color:green; font-size: 30px">Listar</a>
-	              <a class="nav-link nav-item" href="#" id="link_listar_empresas" data-toggle="modal" data-target="#exampleModal"lang=" " style="color:green; font-size: 30px">Novo</a>            
+	              <a class="nav-link nav-item" href="#" id="link_listar_empresas" data-toggle="modal" data-target="#exampleModal" lang=" " style="color:green; font-size: 30px">Novo</a>            
 	        </div>
 	    </nav>
 
@@ -127,10 +127,63 @@
 										</select>																					
 										<div class="valid-feedback">Válido.</div>
 									</div>
-									  
+									
 									
 									<button type="submit" class="btn btn-secondary" data-dismiss="modal" style="background-color: orange">Sair</button>
 									<button id="bt_novo_veiculo" type="button" class="btn btn-primary" style="background-color: green">Salvar</button>
+								</form>
+
+							</div>
+						<div class="modal-footer">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+		<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content" style="background-color: rgb(181, 223, 183)">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel" style="font-size: 25pt;color: rgb(14, 94, 14)">Dados Da Empresa</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+						</div>
+							<div class="modal-body">
+								
+										<!--inicio do meu Formulário-->
+								<form> 
+									<div class="form-group">
+										<label for="recipient-name" class="col-form-label">Identificador:</label>
+										<input type="text" class="form-control" id="idEmp" disabled="disabled">
+										
+									</div>
+
+									<div class="form-group">
+										<label for="recipient-name" class="col-form-label">Nome:</label>
+										<input type="text" class="form-control" id="nomeEmp" disabled="disabled">
+									</div>
+
+									<div class="form-group">
+										<label for="recipient-name" class="col-form-label">Cnpj:</label>
+										<input type="text" class="form-control" id="cnpjEmp" disabled="disabled">
+									</div>
+
+									<div class="form-group">
+										<label for="recipient-name" class="col-form-label">Endereço:</label>
+										<input type="text" class="form-control" id="enderecoEmp" disabled="disabled">
+									</div>
+
+									<div class="form-group">
+										<label for="recipient-name" class="col-form-label">Telefone:</label>
+										<input type="text" class="form-control" id="telEmp" disabled="disabled">
+									</div>
+
+
 								</form>
 
 							</div>
