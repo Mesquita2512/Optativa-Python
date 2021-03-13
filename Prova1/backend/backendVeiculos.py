@@ -6,13 +6,24 @@ import modelo
 def padrao():
     return "bem vindo ao backend"
 
-#LISTANDO OS Veiculos
+#LISTANDO OS VEICULOS
 @config.app.route("/listar_veiculos")
 def listar_veiculos():
     veiculos = config.db.session.query(modelo.Veiculo).all()
     retorno = []    
     for p in veiculos:
         retorno.append(p.json())
+    resposta = config.jsonify(retorno)
+    resposta.headers.add("Access-Control-Allow-Origin", "*")
+    return resposta 
+
+    #LISTANDO AS EMPRESAS
+@config.app.route("/listar_empresas")
+def listar_empresas():
+    empresas = config.db.session.query(modelo.Empresa).all()
+    retorno = []    
+    for e in empresas:
+        retorno.append(e.json())
     resposta = config.jsonify(retorno)
     resposta.headers.add("Access-Control-Allow-Origin", "*")
     return resposta 

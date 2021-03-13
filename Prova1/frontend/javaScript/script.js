@@ -22,7 +22,7 @@ $( document ).ready(function() {
             // percorrer as plantas retornadas em json
             for (var i in veiculos) {
 
-              // montar uma linha da tabela de plantas
+              // montar uma linha da tabela de veiculos
                 lin = '<tr id="linha_'+veiculos[i].id + '">' + 
                         '<td>' + veiculos[i].marca + '</th>' + 
                         '<td>' + veiculos[i].nomeDescricao + '</td>' + 
@@ -56,6 +56,37 @@ $( document ).ready(function() {
     });
 
 
+      //listando os empresas
+      $("#link_listar_empresas").click(function(){
+        
+        $.ajax({
+            url: 'http://localhost:5000/listar_empresas',
+            method: 'GET',
+            dataType: 'json', // os dados são recebidos no formato json
+            success: listar_empresas, // chama a função listar_veiculos para processar o resultado
+            error: function() {
+                alert("erro ao ler dados, verifique o backend");
+            }
+        });
+
+        function listar_empresas(empresas) {
+           
+            // percorrer as plantas retornadas em json
+            for (var i in empresas) {
+             linha = empresas[i].id;
+              $('select').append($('<option>', {
+                value: linha,
+                text: linha
+            }));
+            }
+            // colocar as linhas na tabela
+            
+
+        }
+
+    });
+
+
     //adicionando um veiculo
     $("#bt_novo_veiculo").click(function(){
           //obter dados da tela
@@ -66,15 +97,15 @@ $( document ).ready(function() {
          categoria_veiculo = $("#categoria_veiculo").val();
          placa_veiculo     = $("#placa_veiculo").val();
          renavam_veiculo   = $("#renavam_veiculo").val();
-         id_empresa        = $("#id_empresa").val();
-        
+         id_empresa        = $("#sel1").val();
+         
           //preparar os dados para envio (json)
           dados = JSON.stringify({marca: marca_veiculo, nomeDescricao: descricao_veiculo, anoModelo: anoModelo_veiculo, cor: cor_veiculo, placa: placa_veiculo, renavam: renavam_veiculo, categoria: categoria_veiculo, idEmpresa: id_empresa});
           
           //mandar para o back-end
           
           $.ajax({
-              url : 'http://localhost:5000/incluir_veiculo',
+              url : 'http://localhost:5000/inluir_veiculo',
               type : 'POST',
               contentType : 'application/json', //envio de dados json
               dataType : 'json',
@@ -87,7 +118,7 @@ $( document ).ready(function() {
               if (resposta.resultado == "ok"){
               //exibe mensagem de sucesso
               alert('Veiculo incluido com sucesso!')
-          
+             
               //limpa valores do formulario
               $("#marca_veiculo").val("");
               $("#descricao_veiculo").val("");

@@ -25,7 +25,7 @@
 	              <span class="navbar-text" style="color:green; font-size: 50px; ">Cadastro de Veículos</span>
 	              <a class="nav-link nav-item" href="#" id="link_apagar_tela" style="color:green; font-size: 30px">Início <span class="sr-only">(current)</span></a>
 	              <a class="nav-link nav-item" href="#" id="link_listar_veiculos" style="color:green; font-size: 30px">Listar</a>
-	              <a class="nav-link nav-item" href="#"  data-toggle="modal" data-target="#exampleModal"lang=" " style="color:green; font-size: 30px">Novo</a>            
+	              <a class="nav-link nav-item" href="#" id="link_listar_empresas" data-toggle="modal" data-target="#exampleModal"lang=" " style="color:green; font-size: 30px">Novo</a>            
 	        </div>
 	    </nav>
 
@@ -36,7 +36,7 @@
 	            <h2>Bem vindo ao Sistema de Veículos</h2>
 	        </div>
 
-	        <table id="tabelaVeículos" class="table">
+	        <table id="tabelaEmpresas" class="table">
 	            <thead>
 	              <tr>
 	                <th scope="col">Marca</th>
@@ -120,12 +120,14 @@
 										<div class="invalid-feedback">Por favor, preencha este campo.</div>
 									</div>
 
+									
 									<div class="form-group">
-										<label for="recipient-name" class="col-form-label">Empresa:</label>
-										<input type="number" class="form-control" id="id_empresa" placeholder="Ex: 2" required>
+										<label for="sel1">Selecione a Empresa:</label>
+										<select class="form-control" id="sel1" name="sellist1" required>
+										</select>																					
 										<div class="valid-feedback">Válido.</div>
-										<div class="invalid-feedback">Por favor, preencha este campo.</div>
 									</div>
+									  
 									
 									<button type="submit" class="btn btn-secondary" data-dismiss="modal" style="background-color: orange">Sair</button>
 									<button id="bt_novo_veiculo" type="button" class="btn btn-primary" style="background-color: green">Salvar</button>
